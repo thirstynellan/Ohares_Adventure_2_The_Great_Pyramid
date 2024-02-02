@@ -972,7 +972,7 @@ public class SecretSauce {
         }
     }
 
-    public String getFullName() {
-        return "O'Hare's Adventure II: The Great Pyramid";
-    }
+//    public String getFullName() {
+//        return "O'Hare's Adventure II: The Great Pyramid";
+//    }
 }

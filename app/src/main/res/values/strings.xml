@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">O\'Hare\'s Adventure II</string>
+    <string name="app_name">O\'Hare II</string>
+    <string name="longer_name">O\'Hare\'s Adventure II</string>
+    <string name="longest_name">O\'Hare\'s Adventure II: The Great Pyramid</string>
 </resources>

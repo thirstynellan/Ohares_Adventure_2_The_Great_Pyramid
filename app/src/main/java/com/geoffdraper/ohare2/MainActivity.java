@@ -18,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle b) {
         super.onCreate(b);
+        setTitle(R.string.longer_name);
         gameLogic = new SecretSauce();
         //theSelf = new Player(null, this);
         theSelf = new Player(gameLogic.getStartingLocation(), this);
@@ -44,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void forceRedisplay(Room r) {
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-        setTitle(R.string.app_name);
+        setTitle(R.string.longer_name);
         showingInventory = false;
         setContentView(r.getView(theSelf));
     }
@@ -63,8 +64,8 @@ public class MainActivity extends AppCompatActivity {
             forceRedisplay(theSelf.getCurrentLocation());
         } else {
             AlertDialog.Builder ab = new AlertDialog.Builder(this);
-            ab.setTitle(R.string.app_name);
-            ab.setMessage("Do you really want to stop adventuring?");
+            ab.setTitle(R.string.longest_name);
+            ab.setMessage(scoreString() + " Do you really want to stop adventuring?");
             ab.setPositiveButton("Quit", (d,i) -> finish());
             ab.setNegativeButton("Keep playing", null);
             ab.show();
@@ -82,6 +83,10 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    private String scoreString() {
+        return "You have deposited " + gameLogic.reportScore() + " out of " + gameLogic.totalPossibleTreasures() + " treasures into the correct room.";
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
@@ -92,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
             case R.id.score:
                 AlertDialog.Builder ab = new AlertDialog.Builder(this);
                 ab.setTitle("Score");
-                ab.setMessage("You have deposited " + gameLogic.reportScore() + " out of " + gameLogic.totalPossibleTreasures() + " treasures into the correct room.");
+                ab.setMessage(scoreString());
                 ab.setNeutralButton("OK", null);
                 ab.show();
                 return true;
@@ -114,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void showAboutBox() {
         var ab = new AlertDialog.Builder(this);
-        ab.setTitle(gameLogic.getFullName())
+        ab.setTitle(R.string.longest_name)
                 .setNeutralButton("OK", null)
                 .setMessage(gameLogic.getAboutText())
                 .show();
