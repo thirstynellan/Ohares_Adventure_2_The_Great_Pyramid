@@ -1,6 +1,7 @@
 package com.geoffdraper.ohare2;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.View;
 import android.widget.LinearLayout;
 
@@ -72,6 +73,7 @@ public class Player {
 
     public View showInventory() {
         LinearLayout lnl = new LinearLayout(context);
+        lnl.setBackgroundColor(Color.BLACK);
         lnl.setOrientation(LinearLayout.VERTICAL);
         for (var i : inventory) {
             var b = i.button(this);

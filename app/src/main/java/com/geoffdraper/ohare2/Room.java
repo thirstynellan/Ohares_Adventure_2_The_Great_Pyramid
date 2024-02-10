@@ -1,6 +1,8 @@
 package com.geoffdraper.ohare2;
 
+import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.widget.Button;
@@ -57,6 +59,20 @@ public class Room {
         return this;
     }
 
+    /*private Button buttonFactory(Context c, String label) {
+        Button adoreCrissy = new Button(c);
+        adoreCrissy.setTextSize(25);
+        adoreCrissy.setAllCaps(false);
+        adoreCrissy.setBackground(c.getResources().getDrawable(R.drawable.buttonstyle, null));
+        //c.getResources().getDrawable(R.drawable.buttonstyle);
+        //adoreCrissy.setBackgroundColor(Color.rgb(255,200,200));
+        //adoreCrissy.offsetTopAndBottom(10);
+        //adoreCrissy.offsetLeftAndRight(10);
+        adoreCrissy.setTextColor(Color.WHITE);
+        adoreCrissy.setText(label);
+        return adoreCrissy;
+    }*/
+
     public void addAction(ItemAction a) {
         additionalActions.add(a);
     }
@@ -67,6 +83,7 @@ public class Room {
 
     public View getView(Player avatar) {
         LinearLayout lnl = new LinearLayout(avatar.getContext());
+        lnl.setBackgroundColor(Color.BLACK);
         lnl.setOrientation(LinearLayout.VERTICAL);
         LinearLayout.LayoutParams nice = new LinearLayout.LayoutParams
                 (LinearLayout.LayoutParams.MATCH_PARENT,
@@ -93,28 +110,27 @@ public class Room {
         tv.setText(text);
         tv.setTextSize(25);
         tv.setPadding(5,0,0,0);
+        tv.setBackgroundColor(Color.BLACK);
+        tv.setTextColor(Color.WHITE);
         ScrollView scroller = new ScrollView(avatar.getContext());
         scroller.addView(tv);;
         scroller.setLayoutParams(nice);
         lnl.addView(scroller);
 
         for (ItemAction a : additionalActions) {
-            Button b = new Button(avatar.getContext());
-            b.setText(a.getName(avatar));
+            Button b = MainActivity.buttonFactory(avatar.getContext(), a.getName(avatar));
             b.setOnClickListener(v -> a.thatThingYouDo(avatar));
             lnl.addView(b);
         }
 
         if (outside || avatar.canSee() || hasExternalLightSource()) {
             if (visibleItems.size() > 2) {
-                Button b = new Button(avatar.getContext());
-                b.setText("Pick up item(s)");
+                Button b = MainActivity.buttonFactory(avatar.getContext(), "Pick up item(s)");
                 b.setOnClickListener(v -> showMultiItemPickupDialog(avatar));
                 lnl.addView(b);
             } else {
                 for (Item i : visibleItems) {
-                    Button b = new Button(avatar.getContext());
-                    b.setText("Pick up the " + i);
+                    Button b = MainActivity.buttonFactory(avatar.getContext(), "Pick up the " + i);
                     b.setOnClickListener(v -> {
                         boolean success = i.getPickedUpBy(avatar);
                         if (success) {
@@ -128,8 +144,7 @@ public class Room {
         }
 
         for (Direction d : exits.keySet()) {
-            Button b = new Button(avatar.getContext());
-            b.setText(getButtonLabel(d));
+            Button b = MainActivity.buttonFactory(avatar.getContext(), getButtonLabel(d));
             b.setOnClickListener(v -> {
                 avatar.go(d);
                 avatar.callForceRedisplay();
@@ -138,8 +153,7 @@ public class Room {
         }
 
         if (avatar.knowsAnyMagicWords()) {
-            Button b = new Button(avatar.getContext());
-            b.setText("Speak a Magic Word");
+            Button b = MainActivity.buttonFactory(avatar.getContext(), "Speak a Magic Word");
             b.setOnClickListener(v -> {
                 AlertDialog.Builder ab = new AlertDialog.Builder(avatar.getContext());
                 ab.setTitle("Select the word you want to speak.");
@@ -158,8 +172,7 @@ public class Room {
         }
 
         if (!avatar.isEmptyHanded()) {
-            Button b = new Button(avatar.getContext());
-            b.setText("Use Inventory Item");
+            Button b = MainActivity.buttonFactory(avatar.getContext(), "Use Inventory Item");
             b.setOnClickListener(v -> {
                 ((MainActivity) avatar.getContext()).showInventoryScreen();
             });

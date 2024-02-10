@@ -1,6 +1,7 @@
 package com.geoffdraper.ohare2;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.View;
 import android.widget.Button;
 
@@ -91,8 +92,7 @@ public class Item {
     }
 
     public View button(Player avatar) {
-        Button b = new Button(avatar.getContext());
-        b.setText(description);
+        Button b = MainActivity.buttonFactory(avatar.getContext(), description);
         b.setOnClickListener(v -> {
             AlertDialog.Builder ab = new AlertDialog.Builder(avatar.getContext());
             ab.setTitle("What do you want to do with the " + description + "?");

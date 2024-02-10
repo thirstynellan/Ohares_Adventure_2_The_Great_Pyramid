@@ -4,10 +4,12 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -48,6 +50,16 @@ public class MainActivity extends AppCompatActivity {
         setTitle(R.string.longer_name);
         showingInventory = false;
         setContentView(r.getView(theSelf));
+    }
+
+    public static Button buttonFactory(Context c, String label) {
+        Button b = new Button(c);
+        b.setTextSize(25);
+        b.setAllCaps(false);
+        b.setBackground(c.getResources().getDrawable(R.drawable.buttonstyle, null));
+        b.setTextColor(Color.WHITE);
+        b.setText(label);
+        return b;
     }
 
     public void showInventoryScreen() {
