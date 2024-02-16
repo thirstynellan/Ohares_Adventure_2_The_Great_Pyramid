@@ -18,13 +18,13 @@ public class Item {
     private String description;
     private boolean luggable;
     private List<ItemAction> possibleActions;
-    private boolean treasure;
+    //private boolean treasure;
     private String nonLuggableMessage;
 
     public Item(String d) {
         description = d;
         luggable = true;
-        treasure = false;
+        //treasure = false;
         nonLuggableMessage = "You cannot carry the " + description + ".";
         possibleActions = new ArrayList<>();
         possibleActions.add(new ItemAction() {
@@ -101,7 +101,7 @@ public class Item {
                 options[i] = possibleActions.get(i).getName(avatar);
             }
             ab.setItems(options, (d, i) -> {
-                possibleActions.get(i).thatThingYouDo(/*this,*/ avatar/*, sauce*/);
+                possibleActions.get(i).thatThingYouDo(avatar);
                 avatar.callForceRedisplay();
             });
             ab.show();
@@ -114,12 +114,12 @@ public class Item {
     }
 
     public boolean isTreasure() {
-        return treasure;
+        return description.contains("*");
     }
 
-    public void markAsTreasure() {
-        treasure = true;
-    }
+//    public void markAsTreasure() {
+//        treasure = true;
+//    }
 
     public void performAdditionalActionWhenDropped(Player p) {
         //this is a hook method. Subclasses can override if needed.
